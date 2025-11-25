@@ -1,16 +1,15 @@
-const express = require('express')
-const PrismaClient = require('@prisma/client')
-const prisma = new PrismaClient()
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
 
-const app = express()
+const app = express();
+app.use(express.json());
+app.use(cors());
 
-app.get('/catlaog' , (req , res) => {
-    const data = prisma.book.findMany()
-    console.log(data)
-})
+const bookRouter = require("./src/routes/book.route");
 
-app.get('/catalog/:')
+app.use("/api/book", bookRouter);
 
-app.listen(3000 , () => {
-    console.log(`server is listening on port ${3000}`)
-})
+app.listen(3001, () => {
+    console.log("Server is listening on port 3001");
+});

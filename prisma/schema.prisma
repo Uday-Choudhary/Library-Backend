@@ -20,14 +20,6 @@ model Author {
   books         Book[]    
 }
 
-model Genre {
-  id   Int    @id @default(autoincrement())
-  name String
-  url  String?
-
-  books Book[] @relation("BookGenres")
-}
-
 model Book {
   id       Int       @id @default(autoincrement())
   title    String
@@ -38,7 +30,24 @@ model Book {
   authorId Int
   author   Author    @relation(fields: [authorId], references: [id])
 
-  genres   Genre[]   @relation("BookGenres") 
+  genres BookGenres[]
+}
 
+model Genre {
+  id    Int     @id @default(autoincrement())
+  name  String
+  url   String?
+
+  books BookGenres[]
+}
+
+model BookGenres {
+  book     Book  @relation(fields: [bookId], references: [id])
+  bookId   Int
+
+  genre    Genre @relation(fields: [genreId], references: [id])
+  genreId  Int
+
+  @@id([bookId, genreId])
 }
 
