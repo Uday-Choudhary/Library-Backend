@@ -8,7 +8,7 @@ exports.CreateAuthor = async (req , res) => {
         if (!first_name || !family_name){
             return res.status(400).json({ error: 'Missing fields' });
         }
-        const author = prisma.author.create({
+        const author = await prisma.author.create({
             data : {
                 first_name,
                 family_name,

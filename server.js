@@ -7,8 +7,11 @@ app.use(express.json());
 app.use(cors());
 
 const bookRouter = require("./src/routes/book.route");
+const authorRouter = require("./src/routes/author.route")
 
 app.use("/api/book", bookRouter);
+app.use("/api/author" , authorRouter)
+
 
 app.listen(3001, () => {
     console.log("Server is listening on port 3001");
