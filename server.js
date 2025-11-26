@@ -8,9 +8,11 @@ app.use(cors());
 
 const bookRouter = require("./src/routes/book.route");
 const authorRouter = require("./src/routes/author.route")
+const genreRouter = require("./src/routes/genre.routes")
 
 app.use("/api/book", bookRouter);
 app.use("/api/author" , authorRouter)
+app.use("/api/genre", genreRouter)
 
 
 app.listen(3001, () => {
