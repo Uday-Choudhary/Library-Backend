@@ -1,8 +1,27 @@
 const prisma = require('../../prisma')
 
-// exports.GetGenre = async (req , res) => {
+exports.GetGenre = async (req , res) => {
+    try{
+        const {id} = req.params
+        if (!id){
+            return res.status(400).json({ error: 'Missing id' });
+        }
 
-// }
+        const genre = await prisma.genre.findFirst({
+            where : {
+                id : Number(id)
+            }
+        })
+
+        if (!genre){
+            return res.status(404).json({ status: 'Not Found' })
+
+        }
+        return res.status(200).json({ status: 'Found', genre })
+    }catch(error){
+        console.log(error)
+    }
+}
 
 exports.CreateGenre = async (req, res) => {
 
@@ -53,4 +72,24 @@ exports.UpdateGenre = async (req , res) => {
     }
     
     
+}
+
+exports.DeleteGenre = async (req , res) => {
+    try{
+        const { id } = req.params
+        if (!id) {
+            return res.status(400).json({ error: 'Missing fields' });}
+            
+        
+        deleteGenre = await prisma.genre.delete({
+            where : {
+                id : Number(id)
+            }
+        })
+
+        return res.status(200).json({status : 'deleted' , deleteGenre})
+        
+    }catch(error){
+
+    }
 }
